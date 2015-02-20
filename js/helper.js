@@ -64,11 +64,18 @@ The International Name challenge in Lesson 2 where you'll create a function that
 */
 $(document).ready(function() {
   $('button').click(function() {
-    var iName = inName() || function(){};
+    var iName = inName(bio.name) || function(){};
     $('#name').html(iName);  
   });
 });
 
+function inName(name) {
+  newName = name.trim().split(' ');
+  newName[1] = newName[1].toUpperCase();
+  newName[0] = newName[0].slice(0,1).toUpperCase() + newName[0].slice(1).toLowerCase();
+  newName = newName.join(' ');
+  return newName;
+}
 /*
 The next few lines about clicks are for the Collecting Click Locations quiz in Lesson 2.
 */
@@ -85,7 +92,9 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+  var x = loc.pageX;
+  var y = loc.pageY;
+  logClicks(x, y);
 });
 
 
@@ -171,6 +180,7 @@ function initializeMap() {
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
+      infowindow.open(map, marker);
     });
 
     // this is where the pin actually gets added to the map.
